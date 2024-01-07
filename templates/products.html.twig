@@ -1,0 +1,12 @@
+
+{% for product in products %}
+    <div>
+        <h2>Producto ID: {{ product.id }}</h2>
+        <p>SKU: {{ product.sku }}</p>
+        <p>Nombre: {{ product.name }}</p>
+        <p>Descripción: {{ product.description }}</p>
+        <p>Creado en: {{ product.createdAt|date('Y-m-d H:i:s') }}</p>
+        <p>Actualizado en: {{ product.updatedAt|date('Y-m-d H:i:s') }}</p>
+    </div>
+    <hr>
+{% endfor %}

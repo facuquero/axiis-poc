@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "1c345db6-6b20-4c48-810f-9eaf9b66d84d",
+		"name": "Axiis-poc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10098197"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var res = pm.response.json();",
+							"if (!res.hasOwnProperty('token')) {",
+							"    pm.environment.unset('token');",
+							"} else {",
+							"    pm.environment.set('token', res.token);",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"username\": \"usuarioAutorizado\",\n        \"password\": \"password123\"\n    }\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalUrl}}/api/login",
+					"host": [
+						"{{LocalUrl}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Api Test",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalUrl}}/products",
+					"host": [
+						"{{LocalUrl}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LocalUrl}}/api/products/list",
+					"host": [
+						"{{LocalUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Producto A\",\n        \"SKU\": \"SKU1234\",\n        \"description\": \"Descripción del Producto A\"\n    },\n    {\n        \"name\": \"Producto B\",\n        \"SKU\": \"SKU5678\",\n        \"description\": \"Descripción del Producto B\"\n    },\n    {\n        \"name\": \"Producto C\",\n        \"SKU\": \"SKU91011\",\n        \"description\": \"Descripción del Producto C\"\n    },\n    {\n        \"name\": \"Producto D\",\n        \"SKU\": \"SKU121314\",\n        \"description\": \"Descripción del Producto D\"\n    },\n    {\n        \"name\": \"Producto E\",\n        \"SKU\": \"SKU151617\",\n        \"description\": \"Descripción del Producto E\"\n    },\n    {\n        \"name\": \"Producto F\",\n        \"SKU\": \"SKU181920\",\n        \"description\": \"Descripción del Producto F\"\n    },\n    {\n        \"name\": \"Producto G\",\n        \"SKU\": \"SKU212223\",\n        \"description\": \"Descripción del Producto G\"\n    },\n    {\n        \"name\": \"Producto H\",\n        \"SKU\": \"SKU242526\",\n        \"description\": \"Descripción del Producto H\"\n    },\n    {\n        \"name\": \"Producto I\",\n        \"SKU\": \"SKU272829\",\n        \"description\": \"Descripción del Producto I\"\n    },\n    {\n        \"name\": \"Producto J\",\n        \"SKU\": \"SKU303132\",\n        \"description\": \"Descripción del Producto J\"\n    }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalUrl}}/api/products",
+					"host": [
+						"{{LocalUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upsert Products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Producto JA\",\n        \"SKU\": \"SKU5673\",\n        \"description\": \"Descripción del Producto A\"\n    },\n    {\n        \"name\": \"Producto BA\",\n        \"SKU\": \"SKU5678\",\n        \"description\": \"Descripción del Producto B\"\n    },\n    {\n        \"name\": \"Producto CA\",\n        \"SKU\": \"SKU91011\",\n        \"description\": \"\"\n    }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{LocalUrl}}/api/products/upsert",
+					"host": [
+						"{{LocalUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"upsert"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
